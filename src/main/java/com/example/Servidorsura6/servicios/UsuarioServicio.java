@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioServicio {
@@ -35,5 +36,21 @@ public class UsuarioServicio {
             throw new Exception(error.getMessage());
         }
     }
+
+    public Usuario buscarUsuarioPorId(Long id) throws Exception{
+        try{
+
+            Optional<Usuario>usuarioEncontrado=iUsuarioRepositorio.findById(id);
+            if(usuarioEncontrado.isPresent()){
+                return usuarioEncontrado.get();
+            }else{
+                throw new Exception("usuario no encontrado");
+            }
+
+        }catch (Exception error){
+            throw new Exception(error.getMessage());
+        }
+    }
+
 
 }
